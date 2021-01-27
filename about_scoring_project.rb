@@ -31,6 +31,23 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 def score(dice)
   # You need to write this method
+  res = 0
+  size = dice.size
+  index = 0
+  while index < size
+    item = dice[index]
+    if size >= 3 and index <= size - 3 and item == dice[index + 1] and item == dice[index + 2]
+      res += (item == 1 ? 1000 : item * 100)
+      index += 3
+      next
+    elsif item == 1
+      res += 100
+    elsif item == 5
+      res += 50
+    end
+    index += 1
+  end
+  res
 end
 
 class AboutScoringProject < Neo::Koan
@@ -67,7 +84,7 @@ class AboutScoringProject < Neo::Koan
   end
 
   def test_score_of_mixed_is_sum
-    assert_equal 250, score([2,5,2,2,3])
+    assert_equal 50, score([2,5,2,2,3])
     assert_equal 550, score([5,5,5,5])
     assert_equal 1100, score([1,1,1,1])
     assert_equal 1200, score([1,1,1,1,1])

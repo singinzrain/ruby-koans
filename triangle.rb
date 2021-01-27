@@ -15,6 +15,15 @@
 #
 def triangle(a, b, c)
   # WRITE THIS CODE
+  raise TriangleError if [a, b, c].min <= 0
+  raise TriangleError if [a, b, c].max * 2 >= [a, b, c].reduce(:+)
+  if a == b && b == c
+    :equilateral
+  elsif a == b || b == c || c == a
+    :isosceles
+  else
+    :scalene
+  end
 end
 
 # Error class used in part 2.  No need to change this code.
